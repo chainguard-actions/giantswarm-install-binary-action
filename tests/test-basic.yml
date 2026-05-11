@@ -1,0 +1,23 @@
+name: Test basic binary installation
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          binary: yq
+          version: "4.44.3"
+          download_url: "https://github.com/mikefarah/yq/releases/download/v${version}/${binary}_linux_amd64.tar.gz"
+          tarball_binary_path: "${binary}_linux_amd64"
+          smoke_test: "${binary} --version"
+      - name: Assert binary is installed and executable
+        run: |
+          echo "Checking yq is on PATH..."
+          which yq || { echo "FAIL: yq not found on PATH"; exit 1; }
+          echo "Running yq --version..."
+          yq --version || { echo "FAIL: yq --version failed"; exit 1; }
+          echo "PASS"
