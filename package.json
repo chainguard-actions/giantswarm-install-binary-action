@@ -1,0 +1,32 @@
+{
+  "name": "install-binary-action",
+  "type": "module",
+  "version": "4.0.0",
+  "description": "GitHub action to install compressed binary from a given URL.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint",
+    "dist": "ncc build -o dist index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giantswarm/install-binary-action.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/giantswarm/install-binary-action/issues"
+  },
+  "homepage": "https://github.com/giantswarm/install-binary-action",
+  "dependencies": {
+    "@actions/core": "3.0.0",
+    "@actions/exec": "3.0.0",
+    "@actions/tool-cache": "4.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.1.0",
+    "@vercel/ncc": "0.38.4"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}
