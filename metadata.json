@@ -1,7 +1,7 @@
 {
   "owner": "giantswarm",
   "name": "install-binary-action",
-  "visibility": "internal",
+  "visibility": "public",
   "description": "Install \u0026 cache common scripts and binaries.",
   "block_publish": false
 }

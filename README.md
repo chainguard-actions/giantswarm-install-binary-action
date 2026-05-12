@@ -9,6 +9,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | Version | Tag | Upstream commit |
 |---------|-----|-----------------|
 | v4.0.0 | [`v4.0.0`](https://github.com/chainguard-actions/install-binary-action/tree/v4.0.0) | — |
+| v4.0.1 | [`v4.0.1`](https://github.com/chainguard-actions/install-binary-action/tree/v4.0.1) | — |
 
 ## Privacy
 
