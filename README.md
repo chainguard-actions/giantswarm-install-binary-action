@@ -8,10 +8,10 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 | Version | Tag | Upstream commit |
 |---------|-----|-----------------|
-| v3.1.1 | [`v3.1.1`](https://github.com/chainguard-actions/giantswarm--install-binary-action/tree/v3.1.1) | — |
-| v4.0.0 | [`v4.0.0`](https://github.com/chainguard-actions/giantswarm--install-binary-action/tree/v4.0.0) | — |
-| v4.0.1 | [`v4.0.1`](https://github.com/chainguard-actions/giantswarm--install-binary-action/tree/v4.0.1) | — |
-| v4.0.2 | [`v4.0.2`](https://github.com/chainguard-actions/giantswarm--install-binary-action/tree/v4.0.2) | — |
+| v3.1.1 | [`v3.1.1`](https://github.com/chainguard-actions/giantswarm-install-binary-action/tree/v3.1.1) | — |
+| v4.0.0 | [`v4.0.0`](https://github.com/chainguard-actions/giantswarm-install-binary-action/tree/v4.0.0) | — |
+| v4.0.1 | [`v4.0.1`](https://github.com/chainguard-actions/giantswarm-install-binary-action/tree/v4.0.1) | — |
+| v4.0.2 | [`v4.0.2`](https://github.com/chainguard-actions/giantswarm-install-binary-action/tree/v4.0.2) | — |
 
 ## Privacy
 
