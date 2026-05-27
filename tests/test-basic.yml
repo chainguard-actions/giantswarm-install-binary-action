@@ -9,14 +9,14 @@ jobs:
       - id: action
         uses: .
         with:
-          binary: yq
-          version: "4.44.3"
-          download_url: "https://github.com/mikefarah/yq/releases/download/v${version}/${binary}_linux_amd64.tar.gz"
-          tarball_binary_path: "./${binary}_linux_amd64"
+          binary: jq
+          version: "1.6"
+          download_url: "https://github.com/stedolan/jq/releases/download/jq-${version}/${binary}-linux64"
           smoke_test: "${binary} --version"
       - name: Assert binary is installed and executable
         run: |
-          echo "Checking yq is available in PATH"
-          which yq || { echo "FAIL: yq not found in PATH"; exit 1; }
-          yq --version || { echo "FAIL: yq --version failed"; exit 1; }
+          echo "Checking jq is available in PATH"
+          which jq || { echo "FAIL: jq not found in PATH"; exit 1; }
+          echo "Running jq --version"
+          jq --version || { echo "FAIL: jq --version failed"; exit 1; }
           echo "PASS"

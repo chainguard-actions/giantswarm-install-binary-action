@@ -1,4 +1,4 @@
-name: Test binary installation with custom name
+name: Test binary_new_name input
 on:
   workflow_dispatch:
 jobs:
@@ -9,19 +9,15 @@ jobs:
       - id: action
         uses: .
         with:
-          binary: yq
-          version: "4.44.3"
-          download_url: "https://github.com/mikefarah/yq/releases/download/v${version}/${binary}_linux_amd64.tar.gz"
-          tarball_binary_path: "./${binary}_linux_amd64"
+          binary: jq
+          version: "1.6"
+          download_url: "https://github.com/stedolan/jq/releases/download/jq-${version}/${binary}-linux64"
           smoke_test: "${binary_new_name} --version"
-          binary_new_name: yq-tool
-      - name: Assert binary is installed under new name
+          binary_new_name: myjq
+      - name: Assert renamed binary is installed and executable
         run: |
-          echo "Checking yq-tool is available in PATH"
-          which yq-tool || { echo "FAIL: yq-tool not found in PATH"; exit 1; }
-          yq-tool --version || { echo "FAIL: yq-tool --version failed"; exit 1; }
-          echo "Checking original name is NOT in PATH"
-          if which yq 2>/dev/null; then
-            echo "INFO: yq also exists (may be pre-installed), but yq-tool is the renamed binary"
-          fi
+          echo "Checking myjq is available in PATH"
+          which myjq || { echo "FAIL: myjq not found in PATH"; exit 1; }
+          echo "Running myjq --version"
+          myjq --version || { echo "FAIL: myjq --version failed"; exit 1; }
           echo "PASS"
