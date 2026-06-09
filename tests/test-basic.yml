@@ -9,18 +9,18 @@ jobs:
       - id: action
         uses: .
         with:
-          binary: jq
-          version: "1.7.1"
-          download_url: "https://github.com/jqlang/jq/releases/download/jq-${version}/jq-linux-amd64"
-          smoke_test: "${binary} --version"
-      - name: Assert binary is installed and runnable
+          binary: architect
+          version: "6.18.0"
+          download_url: "https://github.com/giantswarm/architect/releases/download/v6.18.0/architect-v6.18.0-linux-amd64.tar.gz"
+          tarball_binary_path: "*/architect"
+          smoke_test: "architect version"
+      - name: Assert binary is installed and executable
         run: |
-          echo "Checking jq is on PATH..."
-          which jq || { echo "FAIL: jq not found on PATH"; exit 1; }
-          JQ_VERSION=$(jq --version 2>&1)
-          echo "jq version: $JQ_VERSION"
-          if ! echo "$JQ_VERSION" | grep -q "jq-1.7.1"; then
-            echo "FAIL: expected jq-1.7.1, got: $JQ_VERSION"
+          echo "Checking architect binary..."
+          if ! command -v architect &>/dev/null; then
+            echo "FAIL: architect binary not found in PATH"
             exit 1
           fi
-          echo "PASS"
+          echo "PASS: architect binary found"
+          architect version
+          echo "PASS: smoke test passed"

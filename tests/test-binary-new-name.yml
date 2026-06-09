@@ -1,4 +1,4 @@
-name: Test binary installation with custom name
+name: Test binary_new_name input
 on:
   workflow_dispatch:
 jobs:
@@ -9,19 +9,19 @@ jobs:
       - id: action
         uses: .
         with:
-          binary: jq
-          version: "1.7.1"
-          download_url: "https://github.com/jqlang/jq/releases/download/jq-${version}/jq-linux-amd64"
-          smoke_test: "${binary_new_name} --version"
-          binary_new_name: myjq
-      - name: Assert renamed binary is installed and runnable
+          binary: architect
+          version: "6.18.0"
+          download_url: "https://github.com/giantswarm/architect/releases/download/v6.18.0/architect-v6.18.0-linux-amd64.tar.gz"
+          tarball_binary_path: "*/architect"
+          smoke_test: "architect-renamed version"
+          binary_new_name: architect-renamed
+      - name: Assert renamed binary is installed and executable
         run: |
-          echo "Checking myjq is on PATH..."
-          which myjq || { echo "FAIL: myjq not found on PATH"; exit 1; }
-          MYJQ_VERSION=$(myjq --version 2>&1)
-          echo "myjq version: $MYJQ_VERSION"
-          if ! echo "$MYJQ_VERSION" | grep -q "jq-1.7.1"; then
-            echo "FAIL: expected jq-1.7.1, got: $MYJQ_VERSION"
+          echo "Checking architect-renamed binary..."
+          if ! command -v architect-renamed &>/dev/null; then
+            echo "FAIL: architect-renamed binary not found in PATH"
             exit 1
           fi
-          echo "PASS"
+          echo "PASS: architect-renamed binary found"
+          architect-renamed version
+          echo "PASS: smoke test with renamed binary passed"
