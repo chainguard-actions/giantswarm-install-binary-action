@@ -1,0 +1,27 @@
+name: Test binary installation with custom name
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          binary: jq
+          version: "1.7.1"
+          download_url: "https://github.com/jqlang/jq/releases/download/jq-${version}/jq-linux-amd64"
+          smoke_test: "${binary_new_name} --version"
+          binary_new_name: myjq
+      - name: Assert renamed binary is installed and runnable
+        run: |
+          echo "Checking myjq is on PATH..."
+          which myjq || { echo "FAIL: myjq not found on PATH"; exit 1; }
+          MYJQ_VERSION=$(myjq --version 2>&1)
+          echo "myjq version: $MYJQ_VERSION"
+          if ! echo "$MYJQ_VERSION" | grep -q "jq-1.7.1"; then
+            echo "FAIL: expected jq-1.7.1, got: $MYJQ_VERSION"
+            exit 1
+          fi
+          echo "PASS"

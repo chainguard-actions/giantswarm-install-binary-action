@@ -1,0 +1,26 @@
+name: Test basic binary installation
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          binary: jq
+          version: "1.7.1"
+          download_url: "https://github.com/jqlang/jq/releases/download/jq-${version}/jq-linux-amd64"
+          smoke_test: "${binary} --version"
+      - name: Assert binary is installed and runnable
+        run: |
+          echo "Checking jq is on PATH..."
+          which jq || { echo "FAIL: jq not found on PATH"; exit 1; }
+          JQ_VERSION=$(jq --version 2>&1)
+          echo "jq version: $JQ_VERSION"
+          if ! echo "$JQ_VERSION" | grep -q "jq-1.7.1"; then
+            echo "FAIL: expected jq-1.7.1, got: $JQ_VERSION"
+            exit 1
+          fi
+          echo "PASS"
