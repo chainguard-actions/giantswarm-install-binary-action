@@ -11,16 +11,12 @@ jobs:
         with:
           binary: yq
           version: "4.44.3"
-          download_url: "https://github.com/mikefarah/yq/releases/download/v${version}/${binary}_linux_amd64"
-          smoke_test: "${binary} --version"
+          download_url: "https://github.com/mikefarah/yq/releases/download/v${version}/yq_linux_amd64.tar.gz"
+          tarball_binary_path: "./yq_linux_amd64"
+          smoke_test: "yq --version"
       - name: Assert binary is installed and executable
         run: |
-          echo "Checking yq is installed..."
-          if ! command -v yq &>/dev/null; then
-            echo "FAIL: yq binary not found in PATH"
-            exit 1
-          fi
-          echo "yq found at: $(which yq)"
-          echo "Version output:"
-          yq --version
+          echo "Checking yq is available in PATH..."
+          which yq || { echo "FAIL: yq not found in PATH"; exit 1; }
+          yq --version || { echo "FAIL: yq --version failed"; exit 1; }
           echo "PASS"
