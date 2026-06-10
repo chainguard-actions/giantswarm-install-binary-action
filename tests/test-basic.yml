@@ -9,18 +9,18 @@ jobs:
       - id: action
         uses: .
         with:
-          binary: architect
-          version: "6.18.0"
-          download_url: "https://github.com/giantswarm/architect/releases/download/v6.18.0/architect-v6.18.0-linux-amd64.tar.gz"
-          tarball_binary_path: "*/architect"
-          smoke_test: "architect version"
+          binary: yq
+          version: "4.44.3"
+          download_url: "https://github.com/mikefarah/yq/releases/download/v${version}/${binary}_linux_amd64"
+          smoke_test: "${binary} --version"
       - name: Assert binary is installed and executable
         run: |
-          echo "Checking architect binary..."
-          if ! command -v architect &>/dev/null; then
-            echo "FAIL: architect binary not found in PATH"
+          echo "Checking yq is installed..."
+          if ! command -v yq &>/dev/null; then
+            echo "FAIL: yq binary not found in PATH"
             exit 1
           fi
-          echo "PASS: architect binary found"
-          architect version
-          echo "PASS: smoke test passed"
+          echo "yq found at: $(which yq)"
+          echo "Version output:"
+          yq --version
+          echo "PASS"

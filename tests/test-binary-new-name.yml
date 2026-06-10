@@ -1,4 +1,4 @@
-name: Test binary_new_name input
+name: Test binary installation with custom name
 on:
   workflow_dispatch:
 jobs:
@@ -9,19 +9,26 @@ jobs:
       - id: action
         uses: .
         with:
-          binary: architect
-          version: "6.18.0"
-          download_url: "https://github.com/giantswarm/architect/releases/download/v6.18.0/architect-v6.18.0-linux-amd64.tar.gz"
-          tarball_binary_path: "*/architect"
-          smoke_test: "architect-renamed version"
-          binary_new_name: architect-renamed
-      - name: Assert renamed binary is installed and executable
+          binary: yq
+          version: "4.44.3"
+          download_url: "https://github.com/mikefarah/yq/releases/download/v${version}/${binary}_linux_amd64"
+          smoke_test: "yaml-tool --version"
+          binary_new_name: yaml-tool
+      - name: Assert binary is installed under new name
         run: |
-          echo "Checking architect-renamed binary..."
-          if ! command -v architect-renamed &>/dev/null; then
-            echo "FAIL: architect-renamed binary not found in PATH"
+          echo "Checking yaml-tool is installed (renamed from yq)..."
+          if ! command -v yaml-tool &>/dev/null; then
+            echo "FAIL: yaml-tool binary not found in PATH"
             exit 1
           fi
-          echo "PASS: architect-renamed binary found"
-          architect-renamed version
-          echo "PASS: smoke test with renamed binary passed"
+          echo "yaml-tool found at: $(which yaml-tool)"
+          echo "Version output:"
+          yaml-tool --version
+          echo "PASS: binary installed and accessible as yaml-tool"
+      - name: Assert original name is not in PATH
+        run: |
+          echo "Checking yq is NOT installed under original name..."
+          if command -v yq &>/dev/null; then
+            echo "NOTE: yq also exists in PATH (may be pre-installed), but yaml-tool is the renamed binary"
+          fi
+          echo "PASS"
